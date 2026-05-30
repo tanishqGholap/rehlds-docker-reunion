@@ -83,13 +83,13 @@ RUN echo 'linux addons/reunion/reunion_mm_i386.so' >> /opt/steam/hlds/cstrike/ad
     && sed -i 's/Setti_Prefix1 = 5/Setti_Prefix1 = 4/g' /opt/steam/hlds/cstrike/reunion.cfg
 
 # Install revoice
-RUN curl -sL "$revoice_url" -o "revoice.zip" \
-    && unzip "revoice.zip" -d "/opt/steam/tmp" \
-    && unzip /opt/steam/tmp/revoice_*.zip -d "/opt/steam/revoice" \
-    && mkdir /opt/steam/hlds/cstrike/addons/revoice \
-    && cp /opt/steam/revoice/bin/linux32/revoice_mm_i386.so /opt/steam/hlds/cstrike/addons/revoice/revoice_mm_i386.so \
-    && cp /opt/steam/revoice/revoice.cfg /opt/steam/hlds/cstrike/addons/revoice/revoice.cfg \
-    && echo 'linux addons/revoice/revoice_mm_i386.so' >> /opt/steam/hlds/cstrike/addons/metamod/plugins.ini
+# RUN curl -sL "$revoice_url" -o "revoice.zip" \
+#     && unzip "revoice.zip" -d "/opt/steam/tmp" \
+#     && unzip /opt/steam/tmp/revoice_*.zip -d "/opt/steam/revoice" \
+#     && mkdir /opt/steam/hlds/cstrike/addons/revoice \
+#     && cp /opt/steam/revoice/bin/linux32/revoice_mm_i386.so /opt/steam/hlds/cstrike/addons/revoice/revoice_mm_i386.so \
+#     && cp /opt/steam/revoice/revoice.cfg /opt/steam/hlds/cstrike/addons/revoice/revoice.cfg \
+#     && echo 'linux addons/revoice/revoice_mm_i386.so' >> /opt/steam/hlds/cstrike/addons/metamod/plugins.ini
 
 # Install bind_key
 COPY lib/bind_key/amxx/bind_key.amxx /opt/steam/hlds/cstrike/addons/amxmodx/plugins/bind_key.amxx
