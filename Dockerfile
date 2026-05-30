@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM ubuntu:24.04
 
 ARG rehlds_version=3.7.0.695
 ARG metamod_version=1.3.0.128
@@ -14,11 +14,11 @@ ARG jk_botti_url="http://koti.kapsi.fi/jukivili/web/jk_botti/jk_botti-$jk_botti_
 # WARNING: setlocale('en_US.UTF-8') failed, using locale: 'C'.
 # International characters may not work.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    locales=2.28-10 \
+    locales \
  && rm -rf /var/lib/apt/lists/* \
  && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.utf8
+ENV LC_ALL=en_US.UTF-8
 
 # Fix error:
 # Unable to determine CPU Frequency. Try defining CPU_MHZ.
@@ -28,12 +28,12 @@ ENV CPU_MHZ=2300
 RUN groupadd -r steam && useradd -r -g steam -m -d /opt/steam steam
 
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
-    ca-certificates=20190110 \
-    curl=7.64.0-4+deb10u1 \
-    lib32gcc1=1:8.3.0-6 \
-    unzip=6.0-23+deb10u1 \
-    xz-utils=5.2.4-1 \
-    zip=3.0-11+b1 \
+    ca-certificates \
+    curl \
+    lib32gcc-s1 \
+    unzip \
+    xz-utils \
+    zip \
  && apt-get -y autoremove \
  && rm -rf /var/lib/apt/lists/*
 
