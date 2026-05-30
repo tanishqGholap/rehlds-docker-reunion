@@ -52,8 +52,8 @@ RUN mkdir -p "$HOME/.steam" \
 # Fix warnings:
 # couldn't exec listip.cfg
 # couldn't exec banned.cfg
-RUN touch /opt/steam/hlds/valve/listip.cfg
-RUN touch /opt/steam/hlds/valve/banned.cfg
+RUN touch /opt/steam/hlds/cstrike/listip.cfg
+RUN touch /opt/steam/hlds/cstrike/banned.cfg
 
 # Install reverse-engineered HLDS
 RUN curl -sLJO "$rehlds_url" \
@@ -64,45 +64,50 @@ RUN curl -sLJO "$rehlds_url" \
 # Install Metamod-r
 RUN curl -sLJO "$metamod_url" \
     && unzip "metamod_$metamod_version.zip" -d "/opt/steam/metamod" \
-    && cp -R /opt/steam/metamod/addons /opt/steam/hlds/valve/ \
+    && cp -R /opt/steam/metamod/addons /opt/steam/hlds/cstrike/ \
     && rm -rf "metamod_$metamod_version.zip" "/opt/steam/metamod" \
-    && touch /opt/steam/hlds/valve/addons/metamod/plugins.ini \
-    && sed -i 's/dlls\/hl\.so/addons\/metamod\/metamod_i386\.so/g' /opt/steam/hlds/valve/liblist.gam
+    && touch /opt/steam/hlds/cstrike/addons/metamod/plugins.ini \
+    && sed -i 's/dlls\/hl\.so/addons\/metamod\/metamod_i386\.so/g' /opt/steam/hlds/cstrike/liblist.gam
 
 # Install AMX mod X
-RUN curl -sqL "$amxmod_url" | tar -C /opt/steam/hlds/valve/ -zxvf - \
-    && cat /opt/steam/hlds/valve/mapcycle.txt >> /opt/steam/hlds/valve/addons/amxmodx/configs/maps.ini \
-    && echo 'linux addons/amxmodx/dlls/amxmodx_mm_i386.so' >> /opt/steam/hlds/valve/addons/metamod/plugins.ini
+RUN curl -sqL "$amxmod_url" | tar -C /opt/steam/hlds/cstrike/ -zxvf - \
+    && cat /opt/steam/hlds/cstrike/mapcycle.txt >> /opt/steam/hlds/cstrike/addons/amxmodx/configs/maps.ini \
+    && echo 'linux addons/amxmodx/dlls/amxmodx_mm_i386.so' >> /opt/steam/hlds/cstrike/addons/metamod/plugins.ini
 
 # Install reunion
-RUN mkdir -p /opt/steam/hlds/valve/addons/reunion
-COPY lib/reunion/bin/Linux/reunion_mm_i386.so /opt/steam/hlds/valve/addons/reunion/reunion_mm_i386.so
-COPY lib/reunion/reunion.cfg /opt/steam/hlds/valve/reunion.cfg
-COPY lib/reunion/amxx/* /opt/steam/hlds/valve/addons/amxmodx/scripting/
-RUN echo 'linux addons/reunion/reunion_mm_i386.so' >> /opt/steam/hlds/valve/addons/metamod/plugins.ini \
-    && sed -i 's/Setti_Prefix1 = 5/Setti_Prefix1 = 4/g' /opt/steam/hlds/valve/reunion.cfg
+RUN mkdir -p /opt/steam/hlds/cstrike/addons/reunion
+COPY lib/reunion/bin/Linux/reunion_mm_i386.so /opt/steam/hlds/cstrike/addons/reunion/reunion_mm_i386.so
+COPY lib/reunion/reunion.cfg /opt/steam/hlds/cstrike/reunion.cfg
+COPY lib/reunion/amxx/* /opt/steam/hlds/cstrike/addons/amxmodx/scripting/
+RUN echo 'linux addons/reunion/reunion_mm_i386.so' >> /opt/steam/hlds/cstrike/addons/metamod/plugins.ini \
+    && sed -i 's/Setti_Prefix1 = 5/Setti_Prefix1 = 4/g' /opt/steam/hlds/cstrike/reunion.cfg
 
 # Install revoice
 RUN curl -sL "$revoice_url" -o "revoice.zip" \
     && unzip "revoice.zip" -d "/opt/steam/tmp" \
     && unzip /opt/steam/tmp/revoice_*.zip -d "/opt/steam/revoice" \
-    && mkdir /opt/steam/hlds/valve/addons/revoice \
-    && cp /opt/steam/revoice/bin/linux32/revoice_mm_i386.so /opt/steam/hlds/valve/addons/revoice/revoice_mm_i386.so \
-    && cp /opt/steam/revoice/revoice.cfg /opt/steam/hlds/valve/addons/revoice/revoice.cfg \
-    && echo 'linux addons/revoice/revoice_mm_i386.so' >> /opt/steam/hlds/valve/addons/metamod/plugins.ini
+    && mkdir /opt/steam/hlds/cstrike/addons/revoice \
+    && cp /opt/steam/revoice/bin/linux32/revoice_mm_i386.so /opt/steam/hlds/cstrike/addons/revoice/revoice_mm_i386.so \
+    && cp /opt/steam/revoice/revoice.cfg /opt/steam/hlds/cstrike/addons/revoice/revoice.cfg \
+    && echo 'linux addons/revoice/revoice_mm_i386.so' >> /opt/steam/hlds/cstrike/addons/metamod/plugins.ini
 
 # Install bind_key
-COPY lib/bind_key/amxx/bind_key.amxx /opt/steam/hlds/valve/addons/amxmodx/plugins/bind_key.amxx
-RUN echo 'bind_key.amxx            ; binds keys for voting' >> /opt/steam/hlds/valve/addons/amxmodx/configs/plugins.ini
+COPY lib/bind_key/amxx/bind_key.amxx /opt/steam/hlds/cstrike/addons/amxmodx/plugins/bind_key.amxx
+RUN echo 'bind_key.amxx            ; binds keys for voting' >> /opt/steam/hlds/cstrike/addons/amxmodx/configs/plugins.ini
 
 # Install jk_botti
-RUN curl -sqL "$jk_botti_url" | tar -C /opt/steam/hlds/valve/ -xJ \
-    && echo 'linux addons/jk_botti/dlls/jk_botti_mm_i386.so' >> /opt/steam/hlds/valve/addons/metamod/plugins.ini
+RUN curl -sqL "$jk_botti_url" | tar -C /opt/steam/hlds/cstrike/ -xJ \
+    && echo 'linux addons/jk_botti/dlls/jk_botti_mm_i386.so' >> /opt/steam/hlds/cstrike/addons/metamod/plugins.ini
 
 WORKDIR /opt/steam/hlds
 
-# Copy default config
-COPY valve valve
+# Add default config
+ADD files/server.cfg /opt/steam/hlds/cstrike/server.cfg
+
+# Add maps
+ADD maps/* /opt/steam/hlds/cstrike/maps/
+ADD files/mapcycle.txt /opt/steam/hlds/cstrike/mapcycle.txt
+
 
 RUN chmod +x hlds_run hlds_linux
 
