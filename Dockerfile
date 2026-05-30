@@ -5,7 +5,7 @@ ARG metamod_version=1.3.0.128
 ARG jk_botti_version=1.43
 ARG steamcmd_url=https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
 ARG rehlds_url="https://github.com/dreamstalker/rehlds/releases/download/$rehlds_version/rehlds-dist-$rehlds_version-dev.zip"
-ARG metamod_url="https://github.com/theAsmodai/metamod-r/releases/download/1.3.128/metamod_$metamod_version.zip"
+ARG metamod_url="https://github.com/theAsmodai/metamod-r/releases/download/1.3.0.128/metamod_$metamod_version.zip"
 ARG amxmod_url="https://www.amxmodx.org/amxxdrop/1.9/amxmodx-1.9.0-git5263-base-linux.tar.gz"
 ARG revoice_url="https://teamcity.rehlds.org/guestAuth/downloadArtifacts.html?buildTypeId=Revoice_Publish&buildId=lastSuccessful"
 ARG jk_botti_url="http://koti.kapsi.fi/jukivili/web/jk_botti/jk_botti-$jk_botti_version-release.tar.xz"
